@@ -1,0 +1,22 @@
+<div class="container mt-3">
+    <button type="button" class="btn btn-secondary" (click)="backBtn()">Back</button>
+    <table class="table table-bordered table-hover mt-1">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Action</th>
+                <!-- <th scope="col"><button>Back</button></th> -->
+            </tr>
+        </thead>
+        <tbody *ngFor="let user of userData;let i=index">
+            <tr [ngClass]="{'bg-color': user.completed === true, 'bg-color-notcomplete': user.completed === false }">
+                <td>{{user.title}}</td>
+                <td *ngIf="user.completed">Closed</td>
+                <td *ngIf="!user.completed">Open</td>
+                <td *ngIf="user.completed"><button class="btn btn-primary" (click)="openClicked(user,i)">Open</button></td>
+                <td *ngIf="!user.completed"><button class="btn btn-primary"(click)="closeClicked(user,i)">Close</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
