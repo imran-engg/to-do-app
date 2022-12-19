@@ -2,20 +2,18 @@ import { todoActions, ActionTypes } from "../todo.actions";
 
 export class TodoStore {
     usersInfo: any;
-    usertodoInfo: any;
+    id: any;
     specificUsertodoInfo: any
-    specificUsertodoInfoUpdate: any
 
-    constructor(userInfo: any, usertodoInfo: any, specificUsertodoInfoUpdate: any, specificUsertodoInfo: any) {
+    constructor(userInfo: any, id: any, specificUsertodoInfo: any) {
         this.usersInfo = userInfo;
-        this.usertodoInfo = usertodoInfo;
+        this.id = id;
         this.specificUsertodoInfo = specificUsertodoInfo;
-        this.specificUsertodoInfoUpdate = specificUsertodoInfoUpdate
     }
 }
 
 export const initialState: any = {
-    todoStore: new TodoStore({}, {}, {}, {})
+    todoStore: new TodoStore({}, {}, {})
 }
 
 export function todoReducers(state = initialState, action: todoActions = null) {
@@ -23,11 +21,11 @@ export function todoReducers(state = initialState, action: todoActions = null) {
         case ActionTypes.UpdateUsersInfo:
             return { ...state, todoStore: { ...state.todoStore, usersInfo: action.payload.usersInfo } };
 
-        case ActionTypes.AddUserTodoInfo:
-            return { ...state, todoStore: { ...state.todoStore, specificUsertodoInfo: action.payload.specificUsertodoInfo } };
+        case ActionTypes.UpdateUserTodoInfoId:
+            return { ...state, todoStore: { ...state.todoStore, id: action.payload.id } };
 
         case ActionTypes.UpdateUserTodoInfo:
-            return { ...state, todoStore: { ...state.todoStore, specificUsertodoInfoUpdate: action.payload.specificUsertodoInfoUpdate } };
+            return { ...state, todoStore: { ...state.todoStore, specificUsertodoInfo: action.payload.specificUsertodoInfo} };
     }
 
 }
