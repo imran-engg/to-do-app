@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateUsersInfoAction } from 'src/store/todo.actions';
+import { select, Store } from '@ngrx/store';
+import { ActionTypes, AddUsersInfoAction, UpdateUsersInfoAction } from 'src/store/todo.actions';
+import { selectTodoStoreData } from 'src/store/todo.selectors';
 import { UsersList } from '../models/userslist.model';
 import { TodoService } from '../todo.service';
 
@@ -12,14 +13,14 @@ import { TodoService } from '../todo.service';
 })
 export class UsersListComponent implements OnInit {
   usersList: any = [];
-  constructor(private toDoSer: TodoService, private router: Router, private store: Store) { }
+  constructor(private router: Router, private store: Store) { }
 
   ngOnInit(): void {
-    this.toDoSer.getUsersList().subscribe((resp: Array<UsersList>) => {
-      this.store.dispatch(new UpdateUsersInfoAction({ usersInfo: resp }));
-      console.log("resp from users", resp);
-      this.usersList = resp;
-      console.log(" this.usersList from users", this.usersList);
-    });
+
+    this.store.dispatch(new AddUsersInfoAction);
+    this.store.pipe(select(selectTodoStoreData)).subscribe((resp: any) => {
+      this.usersList = resp?.todoStore?.usersInfo;
+    })
+
   }
 }

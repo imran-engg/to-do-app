@@ -9,6 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { todoReducers } from 'src/store/reducers/todo-reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from 'src/store/todo.effects';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { todoReducers } from 'src/store/reducers/todo-reducers';
     AppRoutingModule,
     StoreModule.forRoot({
     }),
+    EffectsModule.forRoot([TodoEffects]),
     StoreModule.forFeature('todo_store', todoReducers),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
